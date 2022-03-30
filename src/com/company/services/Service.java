@@ -13,7 +13,5 @@ public interface Service {
 
     User get(String key);
 
-    boolean set(String key, User value);
-
 ////User search(String key);
 }
