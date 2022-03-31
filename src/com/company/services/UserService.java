@@ -8,11 +8,11 @@ public class  UserService {
         user.getNumbers().add(number);
     }
 
-    public String contactNumbers(){
+    public String contactNumbers(User user){
         StringBuilder str=new StringBuilder("");
-        for (Number num:numbers ) {
+        for (Number num:user.getNumbers()) {
             str.append(num.getType() + num.getNumber() + "\n");
         }
-        return
+        return str.toString();
     }
 }

@@ -10,7 +10,6 @@ public interface Service {
 
     void addNew(String key, User value);
 
-    void addNewNumber(String key, Number number);
 
     void update(String userName, String number, PhoneNumberType phoneNumberType,int index);
 

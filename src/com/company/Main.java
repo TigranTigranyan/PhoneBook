@@ -64,11 +64,14 @@ public class Main {
         controller.addInExisting(name, number,selectPhoneType() );
     }
 
-    private static void updateExisting(){
+    private static void updateExistingNumber(){
         controller.showAll();
 
         System.out.println("Choose contact");
         String name = sc.next();
+
+
+
 
 
     }

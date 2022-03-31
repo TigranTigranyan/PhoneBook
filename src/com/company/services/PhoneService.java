@@ -6,23 +6,20 @@ import com.company.model.PhoneNumberType;
 import com.company.model.User;
 
 public class PhoneService implements Service {
+
+
     @Override
     public void addNew(String key, User value) {
         Contact.contacts.put(key, value);
     }
 
-    @Override
-    public void addNewNumber(String key, Number number) {
-        Contact.contacts.get(key).addNumber(number);
 
-    }
 
     @Override
     public void update(String userName, String number, PhoneNumberType phoneNumberType, int index) {
 
-        Contact.contacts.get(userName).getNumbers().get(index).setNumber(number);
-        Contact.contacts.get(userName).getNumbers().get(index).setType(phoneNumberType);
-
+        Contact.contacts.get(userName).getNumbers().get(index-1).setNumber(number);
+        Contact.contacts.get(userName).getNumbers().get(index-1).setType(phoneNumberType);
     }
 
     @Override
