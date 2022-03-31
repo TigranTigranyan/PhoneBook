@@ -24,10 +24,10 @@ public class Controller {
         phoneService.update(userName, number, phoneNumberType, index);
     }
 
-    public  void showUserAllNumber(String name){
-
+    public  String showUserAllNumber(String name){
+     return  userService.contactNumbers(Contact.contacts.get(name));
     }
-    public void showAll() {
-        System.out.println(phoneService.printContactNames());
+    public String showAll() {
+       return phoneService.printContactNames();
     }
 }

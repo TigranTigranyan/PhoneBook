@@ -27,12 +27,13 @@ public class Main {
 
         int step = sc.nextInt();
 
-        if (step == 1) {
+      //  if (step == 1) {
             addNew();
-        }
-        if (step == 2) {
+      //  }
+       // if (step == 2) {
            addExist();
-        }
+       // }
+        updateExistingNumber();
     }
 
     public static void addNew() {
@@ -54,26 +55,23 @@ public class Main {
     }
 
     public static void addExist() {
-        controller.showAll();
+        System.out.println(controller.showAll());
         System.out.println("Choose contact");
         String name = sc.next();
 
         System.out.println("Add number");
         String number = sc.next();
 
-        controller.addInExisting(name, number,selectPhoneType() );
+        controller.addInExisting(name, number,selectPhoneType());
     }
 
     private static void updateExistingNumber(){
-        controller.showAll();
+        System.out.println(controller.showAll());
 
         System.out.println("Choose contact");
         String name = sc.next();
 
-
-
-
-
+        System.out.println(controller.showUserAllNumber(name));
     }
     private static PhoneNumberType selectPhoneType() {
         System.out.println("Add number type");
