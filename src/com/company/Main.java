@@ -1,36 +1,84 @@
 package com.company;
 
 import com.company.controller.Controller;
+import com.company.model.Number;
 import com.company.model.PhoneNumberType;
 
+
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Scanner;
 
 public class Main {
 
+    static Scanner sc = new Scanner(System.in);
+    static Controller controller = new Controller();
 
     public static void main(String[] args) {
-
+        start();
     }
 
     public static void start() {
-        Scanner sc = new Scanner(System.in);
 
-        System.out.println("Insert name");
-        String userName = sc.next();
 
-        System.out.println("Insert email");
-        String email = sc.next();
+        System.out.println("Add new contact.... press 1");
+        System.out.println("Update existing existing contact... press 2");
 
-        System.out.println("Insert company");
+        int step = sc.nextInt();
+
+       // if (step == 1) {
+            addNew();
+       // }
+        //if (step == 2) {
+           addExist();
+       // }
+    }
+
+    public static void addNew() {
+        System.out.println("Add contact name");
+        String name = sc.next();
+
+
+        System.out.println("Add number");
+        String number = sc.next();
+
+
+
+        System.out.println("Insert company name");
         String company = sc.next();
-        System.out.println("Insert phone number");
-        String phoneNumber = sc.next();
 
-        System.out.println("Insert number type");
-        PhoneNumberType numberType = PhoneNumberType.HOME;
+        List<Number> numbers = new LinkedList<>();
+        numbers.add(new Number(number,selectPhoneType()));
+        controller.addNew(name, numbers, null, company);
+    }
 
+    public static void addExist() {
+        controller.showAll();
+        System.out.println("Choose contact");
+        String name = sc.next();
 
-        new Controller().add();
+        System.out.println("Add number");
+        String number = sc.next();
+
+        controller.addInExisting(name, number,selectPhoneType() );
+    }
+
+    private static PhoneNumberType selectPhoneType() {
+        System.out.println("Add number type");
+        System.out.println("1: HOME\n" + "2: SCHOOL\n" + "3: WORK\n" + "4: MOBILE\n");
+        int numberType = sc.nextInt();
+        PhoneNumberType phoneNumberType = PhoneNumberType.HOME;
+        switch (numberType) {
+            case 1:
+                phoneNumberType = PhoneNumberType.HOME;
+            case 2:
+                phoneNumberType = PhoneNumberType.SCHOOL;
+            case 3:
+                phoneNumberType = PhoneNumberType.WORK;
+            case 4:
+                phoneNumberType = PhoneNumberType.MOBILE;
+        }
+        return phoneNumberType;
     }
 
 }

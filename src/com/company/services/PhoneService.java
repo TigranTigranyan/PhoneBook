@@ -1,14 +1,28 @@
 package com.company.services;
 
 import com.company.Contact;
+import com.company.model.Number;
 import com.company.model.User;
 
 public class PhoneService implements Service {
     @Override
-    public void add(String userName, User value) {
-//        System.out.println("enter user info");
-//        User user = new User();
-        Contact.contacts.put(userName, value);
+    public void addNew(String key, User value) {
+        Contact.contacts.put(key,value);
+    }
+
+    @Override
+    public void addInExisting(String key, Number number) {
+        Contact.contacts.get(key).addNumber(number);
+
+    }
+
+    @Override
+    public String printContactNames() {
+        StringBuilder s=new StringBuilder("");
+        for (String str:Contact.contacts.keySet()) {
+            s.append(str+"/");
+        }
+        return s.toString();
     }
 
     @Override
@@ -27,8 +41,6 @@ public class PhoneService implements Service {
         return null;
     }
 
-    @Override
-    public boolean set(String key, User value) {
-        return false;
+
     }
-}
+

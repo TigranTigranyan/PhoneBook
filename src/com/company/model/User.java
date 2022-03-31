@@ -1,20 +1,21 @@
 package com.company.model;
 
-public class User {
-    private String emails;
-    private String company;
-    private String phoneNumbers;
-    private PhoneNumberType numberType;
-    private EmailType emailType;
+import java.util.List;
 
-    public User(String emails, String company, String phoneNumbers,
-                PhoneNumberType numberType, EmailType emailType) {
+public class User {
+
+    private List<Number> numbers;
+    private List<Email> emails;
+    private String company;
+
+
+    public User(List<Number> numbers, List<Email> emails, String company) {
+        this.numbers = numbers;
         this.emails = emails;
         this.company = company;
-        this.phoneNumbers = phoneNumbers;
-        this.numberType = numberType;
-        this.emailType = emailType;
     }
 
-
+    public void addNumber(Number number) {
+        numbers.add(number);
+    }
 }
