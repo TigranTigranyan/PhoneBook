@@ -8,14 +8,23 @@ public class User {
     private List<Email> emails;
     private String company;
 
-
     public User(List<Number> numbers, List<Email> emails, String company) {
         this.numbers = numbers;
         this.emails = emails;
         this.company = company;
+
+
     }
 
-    public void addNumber(Number number) {
-        numbers.add(number);
+    public List<Number> getNumbers() {
+        return numbers;
+    }
+
+    public List<Email> getEmails() {
+        return emails;
+    }
+
+    public String getCompany() {
+        return company;
     }
 }

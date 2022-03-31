@@ -22,16 +22,17 @@ public class Main {
 
 
         System.out.println("Add new contact.... press 1");
-        System.out.println("Update existing existing contact... press 2");
+        System.out.println("Add in existing contact... press 2");
+        System.out.println("Update existing contact...press 3");
 
         int step = sc.nextInt();
 
-       // if (step == 1) {
+        if (step == 1) {
             addNew();
-       // }
-        //if (step == 2) {
+        }
+        if (step == 2) {
            addExist();
-       // }
+        }
     }
 
     public static void addNew() {
@@ -49,7 +50,7 @@ public class Main {
 
         List<Number> numbers = new LinkedList<>();
         numbers.add(new Number(number,selectPhoneType()));
-        controller.addNew(name, numbers, null, company);
+        controller.create(name, numbers, null, company);
     }
 
     public static void addExist() {
@@ -63,9 +64,22 @@ public class Main {
         controller.addInExisting(name, number,selectPhoneType() );
     }
 
+    private static void updateExisting(){
+        controller.showAll();
+
+        System.out.println("Choose contact");
+        String name = sc.next();
+
+
+    }
     private static PhoneNumberType selectPhoneType() {
         System.out.println("Add number type");
-        System.out.println("1: HOME\n" + "2: SCHOOL\n" + "3: WORK\n" + "4: MOBILE\n");
+        System.out.println("""
+                1: HOME
+                2: SCHOOL
+                3: WORK
+                4: MOBILE
+                """);
         int numberType = sc.nextInt();
         PhoneNumberType phoneNumberType = PhoneNumberType.HOME;
         switch (numberType) {
@@ -80,6 +94,8 @@ public class Main {
         }
         return phoneNumberType;
     }
+
+
 
 }
 
