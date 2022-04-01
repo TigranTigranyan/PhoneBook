@@ -12,8 +12,6 @@ public class User {
         this.numbers = numbers;
         this.emails = emails;
         this.company = company;
-
-
     }
 
     public List<Number> getNumbers() {

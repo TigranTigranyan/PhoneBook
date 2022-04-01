@@ -15,7 +15,6 @@ public interface Service {
 
     String printContactNames();
 
-    void printContacts();
 
     void delete(String key);
 
