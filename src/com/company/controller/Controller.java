@@ -46,10 +46,14 @@ public class Controller {
         System.out.println("---------------");
         for (String name : Contact.contacts.keySet()) {
             User user = Contact.contacts.get(name);
-            System.out.println(name + "\n" + userService.contactNumbers(user) +emailService.contactEmails(user)+
+            System.out.println(name + "\n" + userService.contactNumbers(user) +
+                    emailService.contactEmails(user) +
                     " " + user.getCompany());
             System.out.println("---------------");
         }
+//        for (String str : Contact.contacts.keySet()) {
+//            s.append(str).append("\n");
+//        }
     }
 }
 

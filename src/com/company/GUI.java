@@ -14,21 +14,18 @@ public class GUI {
     static Scanner sc = new Scanner(System.in);
     static Controller controller = new Controller();
 
-    public void addNew() {
-        System.out.println("Add contact name");
+    public void addNewContact() {
+        System.out.println("Enter name");
         String name = sc.next();
 
-
-        System.out.println("Add number");
+        System.out.println("Enter number");
         String number = sc.next();
 
-
         List<Number> numbers = new LinkedList<>();
-        numbers.add(new Number(number, selectPhoneType()));
+        numbers.add(new Number(number, selectPhoneNumberType()));
 
         System.out.println("Add email");
         String email = sc.next();
-
 
         List<Email> emails = new LinkedList<>();
         emails.add(new Email(email, selectEmailType()));
@@ -39,7 +36,7 @@ public class GUI {
         controller.create(name, numbers, emails, company);
     }
 
-    public static void addNumberInExist() {
+    public void addNumberInExisting() {
         System.out.println(controller.getAllNames());
         System.out.println("Choose contact");
         String name = sc.next();
@@ -47,10 +44,10 @@ public class GUI {
         System.out.println("Add number");
         String number = sc.next();
 
-        controller.addNumberInExisting(name, number, selectPhoneType());
+        controller.addNumberInExisting(name, number, selectPhoneNumberType());
     }
 
-    public static void addEmailInExist() {
+    public void addEmailInExisting() {
         System.out.println(controller.getAllNames());
         System.out.println("Choose contact");
         String name = sc.next();
@@ -61,11 +58,11 @@ public class GUI {
         controller.addEmailInExisting(name, email, selectEmailType());
     }
 
-    public  void showAll() {
+    public void showAll() {
         controller.showAll();
     }
 
-    public   void delete() {
+    public void delete() {
         System.out.println(controller.getAllNames());
 
         System.out.println("Choose contact");
@@ -73,7 +70,7 @@ public class GUI {
         controller.delete(name);
     }
 
-    public  void updateExistingNumber() {
+    public void updateExistingNumber() {
         System.out.println(controller.getAllNames());
 
         System.out.println("Choose contact");
@@ -87,11 +84,11 @@ public class GUI {
         System.out.println("Add new number");
         String number = sc.next();
 
-        controller.update(name, number, selectPhoneType(), index);
+        controller.update(name, number, selectPhoneNumberType(), index);
     }
 
-    private static PhoneNumberType selectPhoneType() {
-        System.out.println("Add number type");
+    private static PhoneNumberType selectPhoneNumberType() {
+        System.out.println("Choose number type");
         System.out.println("""
                 1: HOME
                 2: SCHOOL
@@ -99,7 +96,7 @@ public class GUI {
                 4: MOBILE
                 """);
         int numberType = sc.nextInt();
-        PhoneNumberType phoneNumberType = PhoneNumberType.HOME;
+        PhoneNumberType phoneNumberType = null;
         switch (numberType) {
             case 1:
                 phoneNumberType = PhoneNumberType.HOME;
@@ -112,6 +109,10 @@ public class GUI {
                 break;
             case 4:
                 phoneNumberType = PhoneNumberType.MOBILE;
+                break;
+            default:
+                System.out.println("No such type");
+                selectPhoneNumberType();
         }
         return phoneNumberType;
     }
@@ -124,7 +125,7 @@ public class GUI {
                 3: OTHER
                 """);
         int email = sc.nextInt();
-        EmailType emailType = EmailType.OTHER;
+        EmailType emailType = null;
         switch (email) {
             case 1:
                 emailType = EmailType.GMAIL;
@@ -135,6 +136,9 @@ public class GUI {
             case 3:
                 emailType = EmailType.OTHER;
                 break;
+            default:
+                System.out.println("No such type");
+                selectEmailType();
         }
         return emailType;
     }

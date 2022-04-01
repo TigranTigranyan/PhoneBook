@@ -6,13 +6,10 @@ import com.company.model.User;
 
 public class PhoneService implements Service {
 
-
     @Override
     public void addNew(String key, User value) {
         Contact.contacts.put(key, value);
     }
-
-
 
     @Override
     public void update(String userName, String number, PhoneNumberType phoneNumberType, int index) {
@@ -30,18 +27,9 @@ public class PhoneService implements Service {
         return s.toString();
     }
 
-
-
     @Override
     public void delete(String key) {
        Contact.contacts.remove(key);
     }
 
-    @Override
-    public User get(String key) {
-        return null;
-    }
-
-
 }
-
