@@ -1,8 +1,8 @@
 package com.company.model;
 
 public class Email {
-    String email;
-    EmailType type;
+   private String email;
+   private EmailType type;
 
     public Email(String email, EmailType type) {
         this.email = email;

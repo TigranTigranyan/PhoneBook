@@ -2,6 +2,7 @@ package com.company;
 
 import com.company.model.User;
 
+import java.util.HashMap;
 import java.util.Map;
 import java.util.TreeMap;
 
