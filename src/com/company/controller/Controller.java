@@ -15,7 +15,7 @@ public class Controller {
     EmailService emailService = new EmailService();
 
     public void create(String userName, List<Number> numbers, List<Email> emails, String company) {
-        phoneService.addNew(userName, new User(numbers, emails, company));
+        phoneService.addNewContact(userName, new User(numbers, emails, company));
     }
 
     public void delete(String name) {
@@ -30,30 +30,34 @@ public class Controller {
         emailService.addEmail(Contact.contacts.get(userName), new Email(email, emailType));
     }
 
-    public void update(String userName, String number, PhoneNumberType phoneNumberType, int index) {
+    public void updateNumber(String userName, String number, PhoneNumberType phoneNumberType, int index) {
         phoneService.update(userName, number, phoneNumberType, index);
     }
 
-    public String showUserAllNumber(String name) {
+    public void updateEmail(String userName, String email, EmailType emailType, int index) {
+        phoneService.update(userName, email, emailType, index);
+    }
+
+    public String showAllNumbersOfAUser(String name) {
         return userService.contactNumbers(Contact.contacts.get(name));
     }
 
-    public String getAllNames() {
-        return phoneService.printContactNames();
+    public String showAllEMailsOfAUser(String name) {
+        return emailService.contactEmails(Contact.contacts.get(name));
     }
 
-    public void showAll() {
+    public String allNames() {
+        return phoneService.contactNames();
+    }
+
+    public void showAllInfo() {
         System.out.println("---------------");
         for (String name : Contact.contacts.keySet()) {
             User user = Contact.contacts.get(name);
-            System.out.println(name + "\n" + userService.contactNumbers(user) +
-                    emailService.contactEmails(user) +
-                    " " + user.getCompany());
+            System.out.println("Name: " + name + "\n\nNumbers: \n" + userService.contactNumbers(user) +
+                    "\nEmails: \n" + emailService.contactEmails(user) +
+                    "\nCompany: " + user.getCompany());
             System.out.println("---------------");
         }
-//        for (String str : Contact.contacts.keySet()) {
-//            s.append(str).append("\n");
-//        }
     }
 }
-

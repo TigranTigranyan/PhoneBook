@@ -18,11 +18,23 @@ public class User {
         return numbers;
     }
 
+    public void setNumbers(List<Number> numbers) {
+        this.numbers = numbers;
+    }
+
     public List<Email> getEmails() {
         return emails;
     }
 
+    public void setEmails(List<Email> emails) {
+        this.emails = emails;
+    }
+
     public String getCompany() {
         return company;
+    }
+
+    public void setCompany(String company) {
+        this.company = company;
     }
 }

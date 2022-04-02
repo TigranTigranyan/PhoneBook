@@ -13,7 +13,15 @@ public class Email {
         return email;
     }
 
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
     public EmailType getType() {
         return type;
+    }
+
+    public void setType(EmailType type) {
+        this.type = type;
     }
 }
