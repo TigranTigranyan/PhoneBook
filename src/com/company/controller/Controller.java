@@ -13,6 +13,8 @@ public class Controller {
     PhoneService phoneService = new PhoneService();
     UserService userService = new UserService();
     EmailService emailService = new EmailService();
+    public static final String ANSI_PURPLE = "\u001B[35m";
+
 
     public void create(String userName, List<Number> numbers, List<Email> emails, String company) {
         phoneService.addNew(userName, new User(numbers, emails, company));
@@ -46,7 +48,7 @@ public class Controller {
         System.out.println("---------------");
         for (String name : Contact.contacts.keySet()) {
             User user = Contact.contacts.get(name);
-            System.out.println(name + "\n" + userService.contactNumbers(user) +
+            System.out.println(ANSI_PURPLE+name + "\n" + userService.contactNumbers(user) +
                     emailService.contactEmails(user) +
                     " " + user.getCompany());
             System.out.println("---------------");

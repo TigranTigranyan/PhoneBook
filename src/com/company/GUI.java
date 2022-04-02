@@ -5,57 +5,109 @@ import com.company.model.Email;
 import com.company.model.EmailType;
 import com.company.model.Number;
 import com.company.model.PhoneNumberType;
+import com.company.services.PhoneService;
+import com.company.services.Validator;
 
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Scanner;
 
+import static com.company.GUI.selectPhoneNumberType;
+import static com.company.Main.ANSI_BLUE;
+import static com.company.Main.start;
+import static com.company.helper.*;
+
 public class GUI {
     static Scanner sc = new Scanner(System.in);
     static Controller controller = new Controller();
 
+
     public void addNewContact() {
         System.out.println("Enter name");
         String name = sc.next();
+        addName(name);
 
         System.out.println("Enter number");
         String number = sc.next();
+        addNumber(number);
 
         List<Number> numbers = new LinkedList<>();
         numbers.add(new Number(number, selectPhoneNumberType()));
 
+
+
+
         System.out.println("Add email");
         String email = sc.next();
+        addEmail(email);
 
         List<Email> emails = new LinkedList<>();
         emails.add(new Email(email, selectEmailType()));
 
-        System.out.println("Insert company name");
-        String company = sc.next();
+
+        String company = "";
+
+        boolean isCorrectAnswer = false;
+
+        while (!isCorrectAnswer) {
+            System.out.println(ANSI_BLUE+"Add Company Y/N");
+            String answer = sc.next();
+            switch (answer) {
+
+                case "Y":
+                    System.out.println(ANSI_BLUE+"Insert company name");
+                    company = sc.next();
+                    isCorrectAnswer = true;
+                    break;
+
+                case "N":
+                    isCorrectAnswer = true;
+                    break;
+                default:
+                    start();
+            }
+        }
+
 
         controller.create(name, numbers, emails, company);
     }
 
     public void addNumberInExisting() {
         System.out.println(controller.getAllNames());
-        System.out.println("Choose contact");
-        String name = sc.next();
+        if (controller.getAllNames()== "") {
+            start();
+        }
+        else {
+            System.out.println("Choose contact");
+            String name = sc.next();
 
-        System.out.println("Add number");
-        String number = sc.next();
+            System.out.println("Add number");
+            String number = sc.next();
+            if (!Validator.isValidNum(number)){
+                System.out.println(ANSI_RED+"Is nut valid number:");
+                addNumberInExisting();
+            }
 
-        controller.addNumberInExisting(name, number, selectPhoneNumberType());
+            controller.addNumberInExisting(name, number, selectPhoneNumberType());
+        }
     }
 
     public void addEmailInExisting() {
-        System.out.println(controller.getAllNames());
-        System.out.println("Choose contact");
-        String name = sc.next();
+        if (controller.getAllNames()== "") {
+            start();
+        }
+            System.out.println(controller.getAllNames());
+            System.out.println("Choose contact");
+            String name = sc.next();
 
-        System.out.println("Add email");
-        String email = sc.next();
+            System.out.println("Add email");
+            String email = sc.next();
+            if (!Validator.isValidEmail(email)){
+                System.out.println(ANSI_RED+"Is not valid email try again");
+                addEmailInExisting();
+            }
 
-        controller.addEmailInExisting(name, email, selectEmailType());
+            controller.addEmailInExisting(name, email, selectEmailType());
     }
 
     public void showAll() {
@@ -64,15 +116,19 @@ public class GUI {
 
     public void delete() {
         System.out.println(controller.getAllNames());
+        if (controller.getAllNames()== "") {
+            start();
+        }
 
         System.out.println("Choose contact");
         String name = sc.next();
         controller.delete(name);
     }
-
     public void updateExistingNumber() {
         System.out.println(controller.getAllNames());
-
+        if (controller.getAllNames()== "") {
+            start();
+        }
         System.out.println("Choose contact");
         String name = sc.next();
 
@@ -83,11 +139,15 @@ public class GUI {
 
         System.out.println("Add new number");
         String number = sc.next();
+        if (!Validator.isValidNum(number)){
+            System.out.println(ANSI_RED+"Is not valid num: try again");
+            updateExistingNumber();
+        }
 
         controller.update(name, number, selectPhoneNumberType(), index);
     }
 
-    private static PhoneNumberType selectPhoneNumberType() {
+    static PhoneNumberType selectPhoneNumberType() {
         System.out.println("Choose number type");
         System.out.println("""
                 1: HOME
@@ -143,5 +203,36 @@ public class GUI {
         return emailType;
     }
 
+
+}
+//texapoxel urish klassi mej
+
+  class helper {
+      public static final String ANSI_RED = "\u001B[31m";
+    static Scanner sc=new Scanner(System.in);
+    public static String addName(String name){
+        if (!Validator.isValidName(name)){
+        }
+        return name;
+    }
+    public static String  addNumber(String number) {
+        if (!Validator.isValidNum(number)){
+            System.out.println(ANSI_RED+"is Not valid number: try again");
+            addName(sc.next());
+        }
+        return number;
+    }
+    public static String addEmail(String email){
+        if (!Validator.isValidEmail(email)){
+            System.out.println(ANSI_RED+"is Not valid email:");
+        }
+        return email;
+    }
+    public static String addCompany(String compName){
+        if (!Validator.isValidCompanyName(compName)){
+            addCompany(compName);
+        }
+        return compName;
+    }
 }
 

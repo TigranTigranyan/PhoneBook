@@ -8,6 +8,7 @@ public class Main {
     public static void main(String[] args) {
         start();
     }
+    public static final String ANSI_BLUE = "\u001B[34m";
 
     public static void start() {
         Scanner sc = new Scanner(System.in);
@@ -17,7 +18,7 @@ public class Main {
         System.out.println("Add new contact");
 //        gui.addNewContact();
         while (programIsRunning) {
-            System.out.println("""
+            System.out.println(ANSI_BLUE+"""
                     press 1: Add new contact
                     press 2: Add new number in existing contact
                     press 3: Update existing contact
