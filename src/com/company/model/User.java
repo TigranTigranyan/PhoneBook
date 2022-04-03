@@ -3,7 +3,6 @@ package com.company.model;
 import java.util.List;
 
 public class User {
-
     private List<Number> numbers;
     private List<Email> emails;
     private String company;

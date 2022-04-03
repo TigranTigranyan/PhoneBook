@@ -172,22 +172,22 @@ public class GUI {
                     3: WORK
                     4: MOBILE
                     """);
-            int numberType = sc.nextInt();
+            String numberType = sc.next();
 
             switch (numberType) {
-                case 1 -> {
+                case "1" -> {
                     phoneNumberType = PhoneNumberType.HOME;
                     inputIsWrong = false;
                 }
-                case 2 -> {
+                case "2" -> {
                     phoneNumberType = PhoneNumberType.SCHOOL;
                     inputIsWrong = false;
                 }
-                case 3 -> {
+                case "3" -> {
                     phoneNumberType = PhoneNumberType.WORK;
                     inputIsWrong = false;
                 }
-                case 4 -> {
+                case "4" -> {
                     phoneNumberType = PhoneNumberType.MOBILE;
                     inputIsWrong = false;
                 }
