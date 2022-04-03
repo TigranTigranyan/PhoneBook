@@ -1,22 +1,25 @@
 package com.company.controller;
 
 import com.company.Contact;
+import com.company.Main;
 import com.company.model.*;
 import com.company.model.Number;
 import com.company.services.EmailService;
 import com.company.services.PhoneService;
 import com.company.services.UserService;
 
+import java.io.File;
+import java.io.InputStream;
 import java.util.List;
 
 public class Controller {
-    PhoneService phoneService = new PhoneService();
-    UserService userService = new UserService();
-    EmailService emailService = new EmailService();
+    static PhoneService phoneService = new PhoneService();
+    static UserService userService = new UserService();
+    static EmailService emailService = new EmailService();
     public static final String ANSI_PURPLE = "\u001B[35m";
 
 
-    public void create(String userName, List<Number> numbers, List<Email> emails, String company) {
+    public static void create(String userName, List<Number> numbers, List<Email> emails, String company) {
         phoneService.addNew(userName, new User(numbers, emails, company));
     }
 
@@ -40,11 +43,11 @@ public class Controller {
         return userService.contactNumbers(Contact.contacts.get(name));
     }
 
-    public String getAllNames() {
+    public static String getAllNames() {
         return phoneService.printContactNames();
     }
 
-    public void showAll() {
+    public static void showAll() {
         System.out.println("---------------");
         for (String name : Contact.contacts.keySet()) {
             User user = Contact.contacts.get(name);

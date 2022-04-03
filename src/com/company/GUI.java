@@ -5,14 +5,12 @@ import com.company.model.Email;
 import com.company.model.EmailType;
 import com.company.model.Number;
 import com.company.model.PhoneNumberType;
-import com.company.services.PhoneService;
 import com.company.services.Validator;
 
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Scanner;
 
-import static com.company.GUI.selectPhoneNumberType;
 import static com.company.Main.ANSI_BLUE;
 import static com.company.Main.start;
 import static com.company.helper.*;
@@ -22,7 +20,7 @@ public class GUI {
     static Controller controller = new Controller();
 
 
-    public void addNewContact() {
+    public static void addNewContact() {
         System.out.println("Enter name");
         String name = sc.next();
         addName(name);
@@ -70,6 +68,7 @@ public class GUI {
 
 
         controller.create(name, numbers, emails, company);
+
     }
 
     public void addNumberInExisting() {

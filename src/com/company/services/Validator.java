@@ -30,7 +30,7 @@ public class Validator {
     }
 
 
-    private static final Pattern PATTERN_GLOBAL_EMAIL = Pattern.compile("^[A-Za-z0-9+_.-]+@(.+)$");
+    private static final Pattern PATTERN_GLOBAL_EMAIL = Pattern.compile("^[A-Za-z0-9+_.-]+@(.+)");
     public static boolean isValidEmail(String email) {
         final Pattern PATTERN_OTHER = Pattern.compile("^[A-Za-z0-9+_.-]+@");
         final Pattern PATTERN_GMAIL = Pattern.compile("^[A-Za-z0-9+_.-]+@gmail.com");
