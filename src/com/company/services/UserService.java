@@ -11,7 +11,7 @@ public class UserService {
     public String contactNumbers(User user) {
         StringBuilder str = new StringBuilder("");
         for (Number num : user.getNumbers()) {
-            str.append(num.getType() + " " + num.getNumber() + "\n");
+            str.append(num.getType()).append(" ").append(num.getNumber()).append("\n");
         }
         return str.toString();
     }

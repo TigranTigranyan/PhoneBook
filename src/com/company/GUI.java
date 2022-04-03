@@ -11,10 +11,6 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Scanner;
 
-import static com.company.Main.ANSI_BLUE;
-import static com.company.Main.start;
-import static com.company.helper.*;
-
 public class GUI {
     static Scanner sc = new Scanner(System.in);
     static Controller controller = new Controller();
@@ -39,125 +35,69 @@ public class GUI {
                     press 8: Delete contact
                     press 0: Exit
                     """);
-            int command = sc.nextInt();
+            String command = sc.next();
 
             switch (command) {
-                case 1:
-                    gui.addNewContact();
-                    break;
-                case 2:
-                    gui.addNumberInExistingContact();
-                    break;
-                case 3:
-                    gui.updateExistingNumber();
-                    break;
-                case 4:
-                    gui.addEmailInExistingContact();
-                    break;
-                case 5:
-                    gui.updateExistingEMail();
-                    break;
-                case 6:
-                    System.out.println("Contacts:\n" + controller.allNames());
-                    break;
-                case 7:
-                    gui.showContactsInfo();
-                    break;
-                case 8:
-                    gui.delete();
-                    break;
-                case 0:
-                    condition = false;
-                    break;
-                default:
-                    break;
+                case "1" -> gui.addNewContact();
+                case "2" -> gui.addNumberInExistingContact();
+                case "3" -> gui.updateExistingNumber();
+                case "4" -> gui.addEmailInExistingContact();
+                case "5" -> gui.updateExistingEMail();
+                case "6" -> System.out.println("Contacts:\n" + controller.getAllNames());
+                case "7" -> gui.showContactsInfo();
+                case "8" -> gui.delete();
+                case "0" -> condition = false;
+                default -> {
+                }
             }
         }
     }
 
     public void addNewContact() {
 
-    public static void addNewContact() {
         System.out.println("Enter name");
         String name = sc.next();
-        addName(name);
+        name = Helper.addName(name);
 
         System.out.println("Enter phone number");
         String number = sc.next();
-        addNumber(number);
+        number = Helper.addNumber(number);
 
         List<Number> numbers = new LinkedList<>();
         numbers.add(new Number(number, selectPhoneNumberType()));
 
-
-
-
-        System.out.println("Add email");
         System.out.println("Enter email");
         String email = sc.next();
-        addEmail(email);
+        email = Helper.addEmail(email);
 
         List<Email> emails = new LinkedList<>();
         emails.add(new Email(email, selectEmailType()));
 
-
-        String company = "";
-
-        boolean isCorrectAnswer = false;
-
-        while (!isCorrectAnswer) {
-            System.out.println(ANSI_BLUE+"Add Company Y/N");
-            String answer = sc.next();
-            switch (answer) {
-
-                case "Y":
-                    System.out.println(ANSI_BLUE+"Insert company name");
-                    company = sc.next();
-                    isCorrectAnswer = true;
-                    break;
-
-                case "N":
-                    isCorrectAnswer = true;
-                    break;
-                default:
-                    start();
-            }
-        }
-
         System.out.println("Enter company name");
-        String company = sc.next();
+        String companyName = sc.next();
+        companyName = Helper.addCompany(companyName);
 
-        controller.create(name, numbers, emails, company);
+        controller.create(name, numbers, emails, companyName);
 
     }
 
     public void addNumberInExistingContact() {
-        System.out.println(controller.allNames());
+        System.out.println(controller.getAllNames());
         System.out.println("Choose contact");
         String name = sc.next();
-    public void addNumberInExisting() {
-        System.out.println(controller.getAllNames());
-        if (controller.getAllNames()== "") {
-            start();
-        }
-        else {
-            System.out.println("Choose contact");
-            String name = sc.next();
 
         System.out.println("Enter phone number");
         String number = sc.next();
-            System.out.println("Add number");
-            String number = sc.next();
-            if (!Validator.isValidNum(number)){
-                System.out.println(ANSI_RED+"Is nut valid number:");
-                addNumberInExisting();
-            }
 
-            controller.addNumberInExisting(name, number, selectPhoneNumberType());
+        if (!Validator.isValidNum(number)) {
+            System.out.println(Helper.ANSI_RED + "Is nut valid number:");
+            addNumberInExistingContact();
         }
+
+        controller.addNumberInExisting(name, number, selectPhoneNumberType());
     }
 
-    public void addEmailInExisting() {
+    public void addEmailInExistingContact() {
         System.out.println(controller.getAllNames());
         System.out.println("Choose contact");
         String name = sc.next();
@@ -165,11 +105,11 @@ public class GUI {
         System.out.println("Add email");
         String email = sc.next();
 
-            controller.addEmailInExisting(name, email, selectEmailType());
+        controller.addEmailInExisting(name, email, selectEmailType());
     }
 
     public void showContactsInfo() {
-        controller.showAllInfo();
+        controller.showAll();
     }
 
     public void delete() {
@@ -180,6 +120,7 @@ public class GUI {
 
         controller.delete(name);
     }
+
     public void updateExistingNumber() {
         System.out.println(controller.getAllNames());
 
@@ -193,8 +134,8 @@ public class GUI {
 
         System.out.println("Add new number");
         String number = sc.next();
-        if (!Validator.isValidNum(number)){
-            System.out.println(ANSI_RED+"Is not valid num: try again");
+        if (!Validator.isValidNum(number)) {
+            System.out.println(Helper.ANSI_RED + "Is not valid num: try again");
             updateExistingNumber();
         }
 
@@ -202,12 +143,12 @@ public class GUI {
     }
 
     public void updateExistingEMail() {
-        System.out.println(controller.allNames());
+        System.out.println(controller.getAllNames());
 
         System.out.println("Choose contact");
         String name = sc.next();
 
-        System.out.println(controller.showAllEMailsOfAUser(name));
+        System.out.println(controller.showAllNumbersOfAUser(name));
 
         System.out.println("Which row do you want to update?");
         int index = sc.nextInt();
@@ -219,31 +160,37 @@ public class GUI {
     }
 
     private static PhoneNumberType selectPhoneNumberType() {
-        System.out.println("Choose number type");
-        System.out.println("""
-                1: HOME
-                2: SCHOOL
-                3: WORK
-                4: MOBILE
-                """);
-        int numberType = sc.nextInt();
         PhoneNumberType phoneNumberType = null;
-        switch (numberType) {
-            case 1:
-                phoneNumberType = PhoneNumberType.HOME;
-                break;
-            case 2:
-                phoneNumberType = PhoneNumberType.SCHOOL;
-                break;
-            case 3:
-                phoneNumberType = PhoneNumberType.WORK;
-                break;
-            case 4:
-                phoneNumberType = PhoneNumberType.MOBILE;
-                break;
-            default:
-                System.out.println("No such type");
-                selectPhoneNumberType();
+        boolean inputIsWrong = true;
+        while (inputIsWrong) {
+            System.out.println("Choose number type");
+            System.out.println("""
+                    1: HOME
+                    2: SCHOOL
+                    3: WORK
+                    4: MOBILE
+                    """);
+            String numberType = sc.next();
+
+            switch (numberType) {
+                case "1" -> {
+                    phoneNumberType = PhoneNumberType.HOME;
+                    inputIsWrong = false;
+                }
+                case "2" -> {
+                    phoneNumberType = PhoneNumberType.SCHOOL;
+                    inputIsWrong = false;
+                }
+                case "3" -> {
+                    phoneNumberType = PhoneNumberType.WORK;
+                    inputIsWrong = false;
+                }
+                case "4" -> {
+                    phoneNumberType = PhoneNumberType.MOBILE;
+                    inputIsWrong = false;
+                }
+                default -> System.out.println("No such type");
+            }
         }
         return phoneNumberType;
     }
@@ -258,18 +205,18 @@ public class GUI {
                     2: ICLOUD
                     3: OTHER
                     """);
-            int email = sc.nextInt();
+            String email = sc.next();
 
             switch (email) {
-                case 1 -> {
+                case "1" -> {
                     emailType = EmailType.GMAIL;
                     inputIsWrong = false;
                 }
-                case 2 -> {
+                case "2" -> {
                     emailType = EmailType.ICLOUD;
                     inputIsWrong = false;
                 }
-                case 3 -> {
+                case "3" -> {
                     emailType = EmailType.OTHER;
                     inputIsWrong = false;
                 }
@@ -278,5 +225,4 @@ public class GUI {
         }
         return emailType;
     }
-
 }

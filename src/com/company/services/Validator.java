@@ -1,8 +1,5 @@
 package com.company.services;
 
-import com.company.model.EmailType;
-import com.company.model.User;
-
 import java.util.regex.Pattern;
 
 public class Validator {
@@ -16,17 +13,17 @@ public class Validator {
 //        return false;
 //    }
     public static boolean isValidNum(String phoneNumber) {
-        if (phoneNumber == null || phoneNumber.length() == 0) {
+        if (phoneNumber == null) {
             return false;
         }
         return phoneNumber.matches("[0-9]+");
     }
 
-    public static Boolean isValidName(String strName) {
-        if (strName == null || strName.length() == 0) {
+    public static Boolean isValidName(String name) {
+        if (name == null) {
             return false;
         }
-        return strName.length() >= 2 && strName.length() <= 20;
+        return name.length() >= 2 && name.length() <= 20;
     }
 
 
@@ -36,17 +33,14 @@ public class Validator {
         final Pattern PATTERN_GMAIL = Pattern.compile("^[A-Za-z0-9+_.-]+@gmail.com");
         final Pattern PATTERN_ICLOUD = Pattern.compile("^[A-Za-z0-9+_.-]+@icloud.com");
 
-
-
         return email.matches(PATTERN_GLOBAL_EMAIL.pattern());
-
     }
 
-    public static Boolean isValidCompanyName(String strName) {
-        if (strName == null || strName.length() == 0) {
+    public static Boolean isValidCompanyName(String compName) {
+        if (compName == null) {
             return false;
         }
-        return strName.length() >= 2 && strName.length() <= 40;
+        return compName.length() >= 2 && compName.length() <= 40;
     }
 
 

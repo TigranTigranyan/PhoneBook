@@ -26,9 +26,11 @@ public class PhoneService implements Service {
 
     @Override
     public String contactNames() {
-        StringBuilder s = new StringBuilder("");
+        StringBuilder s = new StringBuilder();
+        int i = 1;
         for (String str : Contact.contacts.keySet()) {
-            s.append(str).append("\n");
+            s.append(i).append(": ").append(str).append("\n");
+            i++;
         }
         return s.toString();
     }
