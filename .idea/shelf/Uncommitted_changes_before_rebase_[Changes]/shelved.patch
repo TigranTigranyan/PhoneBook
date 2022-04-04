@@ -1,0 +1,270 @@
+Index: src/com/company/controller/Controller.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.company.controller;\r\n\r\nimport com.company.Contact;\r\nimport com.company.model.*;\r\nimport com.company.model.Number;\r\nimport com.company.services.PhoneService;\r\nimport com.company.services.UserService;\r\n\r\nimport java.util.List;\r\n\r\npublic class Controller {\r\n    PhoneService phoneService = new PhoneService();\r\n    UserService userService=new UserService();\r\n\r\n    public void create(String userName, List<Number> numbers, List<Email> emails, String company) {\r\n        phoneService.addNew(userName, new User(numbers, emails, company));\r\n    }\r\n\r\n    public void addInExisting(String userName, String number, PhoneNumberType phoneNumberType) {\r\n        userService.addNumber(Contact.contacts.get(userName),new Number(number, phoneNumberType));\r\n    }\r\n\r\n    public void update(String userName, String number, PhoneNumberType phoneNumberType, int index) {\r\n        phoneService.update(userName, number, phoneNumberType, index);\r\n    }\r\n\r\n    public  String showUserAllNumber(String name){\r\n     return  userService.contactNumbers(Contact.contacts.get(name));\r\n    }\r\n    public String showAll() {\r\n       return phoneService.printContactNames();\r\n    }\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/com/company/controller/Controller.java b/src/com/company/controller/Controller.java
+--- a/src/com/company/controller/Controller.java	(revision 7975495d67b0cd31699555bf2f4f8656dd2b938d)
++++ b/src/com/company/controller/Controller.java	(date 1648735889666)
+@@ -10,24 +10,25 @@
+ 
+ public class Controller {
+     PhoneService phoneService = new PhoneService();
+-    UserService userService=new UserService();
++    UserService userService = new UserService();
+ 
+     public void create(String userName, List<Number> numbers, List<Email> emails, String company) {
+         phoneService.addNew(userName, new User(numbers, emails, company));
+     }
+ 
+     public void addInExisting(String userName, String number, PhoneNumberType phoneNumberType) {
+-        userService.addNumber(Contact.contacts.get(userName),new Number(number, phoneNumberType));
++        userService.addNumber(Contact.contacts.get(userName), new Number(number, phoneNumberType));
+     }
+ 
+     public void update(String userName, String number, PhoneNumberType phoneNumberType, int index) {
+         phoneService.update(userName, number, phoneNumberType, index);
+     }
+ 
+-    public  String showUserAllNumber(String name){
+-     return  userService.contactNumbers(Contact.contacts.get(name));
++    public String showUserAllNumber(String name) {
++        return userService.contactNumbers(Contact.contacts.get(name));
+     }
++
+     public String showAll() {
+-       return phoneService.printContactNames();
++        return phoneService.printContactNames();
+     }
+ }
+Index: src/com/company/Main.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.company;\r\n\r\nimport com.company.controller.Controller;\r\nimport com.company.model.Number;\r\nimport com.company.model.PhoneNumberType;\r\n\r\n\r\nimport java.util.LinkedList;\r\nimport java.util.List;\r\nimport java.util.Scanner;\r\n\r\npublic class Main {\r\n\r\n    static Scanner sc = new Scanner(System.in);\r\n    static Controller controller = new Controller();\r\n\r\n    public static void main(String[] args) {\r\n        start();\r\n    }\r\n\r\n    public static void start() {\r\n\r\n\r\n        System.out.println(\"Add new contact.... press 1\");\r\n        System.out.println(\"Add in existing contact... press 2\");\r\n        System.out.println(\"Update existing contact...press 3\");\r\n\r\n        int step = sc.nextInt();\r\n\r\n      //  if (step == 1) {\r\n            addNew();\r\n      //  }\r\n       // if (step == 2) {\r\n           addExist();\r\n       // }\r\n        updateExistingNumber();\r\n    }\r\n\r\n    public static void addNew() {\r\n        System.out.println(\"Add contact name\");\r\n        String name = sc.next();\r\n\r\n\r\n        System.out.println(\"Add number\");\r\n        String number = sc.next();\r\n\r\n\r\n\r\n        System.out.println(\"Insert company name\");\r\n        String company = sc.next();\r\n\r\n        List<Number> numbers = new LinkedList<>();\r\n        numbers.add(new Number(number,selectPhoneType()));\r\n        controller.create(name, numbers, null, company);\r\n    }\r\n\r\n    public static void addExist() {\r\n        System.out.println(controller.showAll());\r\n        System.out.println(\"Choose contact\");\r\n        String name = sc.next();\r\n\r\n        System.out.println(\"Add number\");\r\n        String number = sc.next();\r\n\r\n        controller.addInExisting(name, number,selectPhoneType());\r\n    }\r\n\r\n    private static void updateExistingNumber(){\r\n        System.out.println(controller.showAll());\r\n\r\n        System.out.println(\"Choose contact\");\r\n        String name = sc.next();\r\n\r\n        System.out.println(controller.showUserAllNumber(name));\r\n    }\r\n    private static PhoneNumberType selectPhoneType() {\r\n        System.out.println(\"Add number type\");\r\n        System.out.println(\"\"\"\r\n                1: HOME\r\n                2: SCHOOL\r\n                3: WORK\r\n                4: MOBILE\r\n                \"\"\");\r\n        int numberType = sc.nextInt();\r\n        PhoneNumberType phoneNumberType = PhoneNumberType.HOME;\r\n        switch (numberType) {\r\n            case 1:\r\n                phoneNumberType = PhoneNumberType.HOME;\r\n            case 2:\r\n                phoneNumberType = PhoneNumberType.SCHOOL;\r\n            case 3:\r\n                phoneNumberType = PhoneNumberType.WORK;\r\n            case 4:\r\n                phoneNumberType = PhoneNumberType.MOBILE;\r\n        }\r\n        return phoneNumberType;\r\n    }\r\n\r\n\r\n\r\n}\r\n\r\n\r\n\r\n\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/com/company/Main.java b/src/com/company/Main.java
+--- a/src/com/company/Main.java	(revision 7975495d67b0cd31699555bf2f4f8656dd2b938d)
++++ b/src/com/company/Main.java	(date 1648782352722)
+@@ -3,14 +3,13 @@
+ import com.company.controller.Controller;
+ import com.company.model.Number;
+ import com.company.model.PhoneNumberType;
+-
++import com.company.model.User;
+ 
+ import java.util.LinkedList;
+ import java.util.List;
+ import java.util.Scanner;
+ 
+ public class Main {
+-
+     static Scanner sc = new Scanner(System.in);
+     static Controller controller = new Controller();
+ 
+@@ -19,20 +18,19 @@
+     }
+ 
+     public static void start() {
+-
+-
+-        System.out.println("Add new contact.... press 1");
+-        System.out.println("Add in existing contact... press 2");
+-        System.out.println("Update existing contact...press 3");
++        System.out.println("""
++                press 1: Add new contact\s
++                press 2: Add in existing contact
++                press 3: Update existing contact""");
+ 
+         int step = sc.nextInt();
+ 
+-      //  if (step == 1) {
+-            addNew();
+-      //  }
+-       // if (step == 2) {
+-           addExist();
+-       // }
++        //  if (step == 1) {
++        addNew();
++        //  }
++        // if (step == 2) {
++        addExist();
++        // }
+         updateExistingNumber();
+     }
+ 
+@@ -40,17 +38,16 @@
+         System.out.println("Add contact name");
+         String name = sc.next();
+ 
+-
+         System.out.println("Add number");
+         String number = sc.next();
+ 
+-
+-
+         System.out.println("Insert company name");
+         String company = sc.next();
+ 
++        //amen angam nor list?
++        // linked list?
+         List<Number> numbers = new LinkedList<>();
+-        numbers.add(new Number(number,selectPhoneType()));
++        numbers.add(new Number(number, selectPhoneType()));
+         controller.create(name, numbers, null, company);
+     }
+ 
+@@ -58,14 +55,14 @@
+         System.out.println(controller.showAll());
+         System.out.println("Choose contact");
+         String name = sc.next();
+-
+         System.out.println("Add number");
++        //inch tipi number???
+         String number = sc.next();
+ 
+-        controller.addInExisting(name, number,selectPhoneType());
++        controller.addInExisting(name, number, selectPhoneType());
+     }
+ 
+-    private static void updateExistingNumber(){
++    private static void updateExistingNumber() {
+         System.out.println(controller.showAll());
+ 
+         System.out.println("Choose contact");
+@@ -73,17 +70,18 @@
+ 
+         System.out.println(controller.showUserAllNumber(name));
+     }
++
+     private static PhoneNumberType selectPhoneType() {
+-        System.out.println("Add number type");
++        System.out.println("Choose number type");
+         System.out.println("""
+                 1: HOME
+                 2: SCHOOL
+                 3: WORK
+                 4: MOBILE
+                 """);
+-        int numberType = sc.nextInt();
+-        PhoneNumberType phoneNumberType = PhoneNumberType.HOME;
+-        switch (numberType) {
++        int chosenNumberType = sc.nextInt();
++        PhoneNumberType phoneNumberType = null;
++        switch (chosenNumberType) {
+             case 1:
+                 phoneNumberType = PhoneNumberType.HOME;
+             case 2:
+@@ -97,7 +95,6 @@
+     }
+ 
+ 
+-
+ }
+ 
+ 
+Index: src/com/company/services/UserService.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.company.services;\r\n\r\nimport com.company.model.Number;\r\nimport com.company.model.User;\r\n\r\npublic class  UserService {\r\n    public void addNumber(User user,Number number) {\r\n        user.getNumbers().add(number);\r\n    }\r\n\r\n    public String contactNumbers(User user){\r\n        StringBuilder str=new StringBuilder(\"\");\r\n        for (Number num:user.getNumbers()) {\r\n            str.append(num.getType() +\" \"+num.getNumber() + \"\\n\");\r\n        }\r\n        return str.toString();\r\n    }\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/com/company/services/UserService.java b/src/com/company/services/UserService.java
+--- a/src/com/company/services/UserService.java	(revision 7975495d67b0cd31699555bf2f4f8656dd2b938d)
++++ b/src/com/company/services/UserService.java	(date 1648735889744)
+@@ -3,15 +3,15 @@
+ import com.company.model.Number;
+ import com.company.model.User;
+ 
+-public class  UserService {
+-    public void addNumber(User user,Number number) {
++public class UserService {
++    public void addNumber(User user, Number number) {
+         user.getNumbers().add(number);
+     }
+ 
+-    public String contactNumbers(User user){
+-        StringBuilder str=new StringBuilder("");
+-        for (Number num:user.getNumbers()) {
+-            str.append(num.getType() +" "+num.getNumber() + "\n");
++    public String contactNumbers(User user) {
++        StringBuilder str = new StringBuilder("");
++        for (Number num : user.getNumbers()) {
++            str.append(num.getType() + " " + num.getNumber() + "\n");
+         }
+         return str.toString();
+     }
+Index: src/com/company/model/User.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.company.model;\r\n\r\nimport java.util.List;\r\n\r\npublic class User {\r\n\r\n    private List<Number> numbers;\r\n    private List<Email> emails;\r\n    private String company;\r\n\r\n    public User(List<Number> numbers, List<Email> emails, String company) {\r\n        this.numbers = numbers;\r\n        this.emails = emails;\r\n        this.company = company;\r\n\r\n\r\n    }\r\n\r\n    public List<Number> getNumbers() {\r\n        return numbers;\r\n    }\r\n\r\n    public List<Email> getEmails() {\r\n        return emails;\r\n    }\r\n\r\n    public String getCompany() {\r\n        return company;\r\n    }\r\n}\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/com/company/model/User.java b/src/com/company/model/User.java
+--- a/src/com/company/model/User.java	(revision 7975495d67b0cd31699555bf2f4f8656dd2b938d)
++++ b/src/com/company/model/User.java	(date 1648780159892)
+@@ -12,8 +12,6 @@
+         this.numbers = numbers;
+         this.emails = emails;
+         this.company = company;
+-
+-
+     }
+ 
+     public List<Number> getNumbers() {
+Index: src/com/company/services/PhoneService.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.company.services;\r\n\r\nimport com.company.Contact;\r\nimport com.company.model.Number;\r\nimport com.company.model.PhoneNumberType;\r\nimport com.company.model.User;\r\n\r\npublic class PhoneService implements Service {\r\n\r\n\r\n    @Override\r\n    public void addNew(String key, User value) {\r\n        Contact.contacts.put(key, value);\r\n    }\r\n\r\n\r\n\r\n    @Override\r\n    public void update(String userName, String number, PhoneNumberType phoneNumberType, int index) {\r\n\r\n        Contact.contacts.get(userName).getNumbers().get(index-1).setNumber(number);\r\n        Contact.contacts.get(userName).getNumbers().get(index-1).setType(phoneNumberType);\r\n    }\r\n\r\n    @Override\r\n    public String printContactNames() {\r\n        StringBuilder s = new StringBuilder(\"\");\r\n        for (String str : Contact.contacts.keySet()) {\r\n            s.append(str).append(\"\\n\");\r\n        }\r\n        return s.toString();\r\n    }\r\n\r\n\r\n    @Override\r\n    public void printContacts() {\r\n        ////toString-@ override ptit arvi\r\n        System.out.println(Contact.contacts.toString());\r\n    }\r\n\r\n    @Override\r\n    public void delete(String key) {\r\n\r\n    }\r\n\r\n    @Override\r\n    public User get(String key) {\r\n        return null;\r\n    }\r\n\r\n\r\n}\r\n\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/com/company/services/PhoneService.java b/src/com/company/services/PhoneService.java
+--- a/src/com/company/services/PhoneService.java	(revision 7975495d67b0cd31699555bf2f4f8656dd2b938d)
++++ b/src/com/company/services/PhoneService.java	(date 1648781236946)
+@@ -7,19 +7,16 @@
+ 
+ public class PhoneService implements Service {
+ 
+-
+     @Override
+     public void addNew(String key, User value) {
+         Contact.contacts.put(key, value);
+     }
+ 
+-
+-
+     @Override
+     public void update(String userName, String number, PhoneNumberType phoneNumberType, int index) {
+ 
+-        Contact.contacts.get(userName).getNumbers().get(index-1).setNumber(number);
+-        Contact.contacts.get(userName).getNumbers().get(index-1).setType(phoneNumberType);
++        Contact.contacts.get(userName).getNumbers().get(index - 1).setNumber(number);
++        Contact.contacts.get(userName).getNumbers().get(index - 1).setType(phoneNumberType);
+     }
+ 
+     @Override
+@@ -31,10 +28,9 @@
+         return s.toString();
+     }
+ 
+-
+     @Override
+     public void printContacts() {
+-        ////toString-@ override ptit arvi
++        ////toString-@ override piti arvi
+         System.out.println(Contact.contacts.toString());
+     }
+ 
+@@ -48,6 +44,5 @@
+         return null;
+     }
+ 
+-
+ }
+ 
