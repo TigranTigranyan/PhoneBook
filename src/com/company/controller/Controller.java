@@ -43,6 +43,10 @@ public class Controller {
         return userService.contactNumbers(Contact.contacts.get(name));
     }
 
+    public String showAllEmailsOfAUser(String name) {
+        return emailService.contactEmails(Contact.contacts.get(name));
+    }
+
     public String getAllNames() {
         return phoneService.contactNames();
     }

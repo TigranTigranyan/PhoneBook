@@ -10,9 +10,9 @@ public class EmailService {
     }
 
     public String contactEmails(User user) {
-        StringBuilder str = new StringBuilder("");
+        StringBuilder str = new StringBuilder();
         for (Email email : user.getEmails()) {
-            str.append(email.getType() + " " + email.getEmail() + "\n");
+            str.append(email.getType()).append(" ").append(email.getEmail()).append("\n");
         }
         return str.toString();
     }

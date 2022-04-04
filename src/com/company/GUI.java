@@ -42,7 +42,7 @@ public class GUI {
                 case "2" -> gui.addNumberInExistingContact();
                 case "3" -> gui.updateExistingNumber();
                 case "4" -> gui.addEmailInExistingContact();
-                case "5" -> gui.updateExistingEMail();
+                case "5" -> gui.updateExistingEmail();
                 case "6" -> System.out.println("Contacts:\n" + controller.getAllNames());
                 case "7" -> gui.showContactsInfo();
                 case "8" -> gui.delete();
@@ -88,13 +88,10 @@ public class GUI {
 
         System.out.println("Enter phone number");
         String number = sc.next();
-
-        if (!Validator.isValidNum(number)) {
-            System.out.println(Helper.ANSI_RED + "Is nut valid number:");
-            addNumberInExistingContact();
-        }
+        number = Helper.addNumber(number);
 
         controller.addNumberInExisting(name, number, selectPhoneNumberType());
+
     }
 
     public void addEmailInExistingContact() {
@@ -102,8 +99,9 @@ public class GUI {
         System.out.println("Choose contact");
         String name = sc.next();
 
-        System.out.println("Add email");
+        System.out.println("Enter email");
         String email = sc.next();
+        email = Helper.addEmail(email);
 
         controller.addEmailInExisting(name, email, selectEmailType());
     }
@@ -132,29 +130,27 @@ public class GUI {
         System.out.println("Which row do you want to update?");
         int index = sc.nextInt();
 
-        System.out.println("Add new number");
+        System.out.println("Enter phone number");
         String number = sc.next();
-        if (!Validator.isValidNum(number)) {
-            System.out.println(Helper.ANSI_RED + "Is not valid num: try again");
-            updateExistingNumber();
-        }
+        number = Helper.addNumber(number);
 
         controller.updateNumber(name, number, selectPhoneNumberType(), index);
     }
 
-    public void updateExistingEMail() {
+    public void updateExistingEmail() {
         System.out.println(controller.getAllNames());
 
         System.out.println("Choose contact");
         String name = sc.next();
 
-        System.out.println(controller.showAllNumbersOfAUser(name));
+        System.out.println(controller.showAllEmailsOfAUser(name));
 
         System.out.println("Which row do you want to update?");
         int index = sc.nextInt();
 
-        System.out.println("Add new Email");
+        System.out.println("Enter email");
         String email = sc.next();
+        email = Helper.addEmail(email);
 
         controller.updateEmail(name, email, selectEmailType(), index);
     }
