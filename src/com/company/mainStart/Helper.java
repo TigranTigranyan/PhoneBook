@@ -1,6 +1,6 @@
-package com.company;
+package mainStart;
 
-import com.company.services.Validator;
+import services.Validator;
 
 import java.util.Scanner;
 

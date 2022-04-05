@@ -1,7 +1,7 @@
-package com.company.services;
+package services;
 
-import com.company.model.*;
-import com.company.model.Number;
+import model.*;
+import model.Number;
 
 public interface Service {
 

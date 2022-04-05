@@ -1,4 +1,4 @@
-package com.company.model;
+package model;
 
 public enum PhoneNumberType {
     HOME(0), SCHOOL(1), WORK(2), MOBILE(3);

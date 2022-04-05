@@ -1,8 +1,9 @@
-package com.company.services;
+package services;
 
-import com.company.Contact;
-import com.company.model.*;
-import com.company.model.Number;
+
+import mainStart.Contact;
+import model.*;
+import model.Number;
 
 public class UserService implements Service {
 

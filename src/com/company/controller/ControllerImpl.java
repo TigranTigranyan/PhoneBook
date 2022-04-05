@@ -1,13 +1,12 @@
-package com.company.controller;
+package controller;
+import mainStart.Contact;
+import model.Number;
+import model.*;
+import services.EmailService;
+import services.NumberService;
+import services.UserService;
 
-import com.company.Contact;
-import com.company.model.Number;
-import com.company.model.*;
-import com.company.services.EmailService;
-import com.company.services.NumberService;
-import com.company.services.UserService;
-
-public class ControllerImpl implements UserController{
+public class ControllerImpl implements UserController {
 
     static UserService userService = new UserService();
     static NumberService numberService = new NumberService();
@@ -24,14 +23,17 @@ public class ControllerImpl implements UserController{
     }
 
     @Override
-    public void addNumberInExisting(String userName,Number number) {
+    public void addNumberInExisting(String userName, Number number) {
         numberService.addNumber(Contact.contacts.get(userName), number);
+
     }
+
 
     @Override
     public void addEmailInExisting(String userName, Email email) {
         emailService.addEmail(Contact.contacts.get(userName), email);
     }
+
 
     @Override
     public void updateNumber(String userName, Number number, int index) {

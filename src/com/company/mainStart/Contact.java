@@ -1,7 +1,5 @@
-package com.company;
-
-import com.company.model.User;
-
+package mainStart;
+import model.User;
 import java.util.Map;
 import java.util.TreeMap;
 

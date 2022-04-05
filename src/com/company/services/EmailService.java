@@ -1,7 +1,7 @@
-package com.company.services;
+package services;
 
-import com.company.model.Email;
-import com.company.model.User;
+import model.Email;
+import model.User;
 
 public class EmailService {
 

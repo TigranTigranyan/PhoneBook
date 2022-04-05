@@ -1,8 +1,9 @@
-package com.company.controller;
+package controller;
 
-import com.company.model.Email;
-import com.company.model.Number;
-import com.company.model.User;
+
+import model.Email;
+import model.Number;
+import model.User;
 
 public interface UserController {
     void create(String userName, User user);

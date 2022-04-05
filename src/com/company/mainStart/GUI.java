@@ -1,15 +1,20 @@
-package com.company;
+package mainStart;
 
-import com.company.controller.ControllerImpl;
-import com.company.model.*;
-import com.company.model.Number;
+import controller.ControllerImpl;
+import controller.Json;
+import model.*;
+import model.Number;
+import model.EmailType;
 
 import java.util.InputMismatchException;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Scanner;
 
+import static controller.Json.*;
+
 public class GUI {
+
     static Scanner sc = new Scanner(System.in);
     static ControllerImpl controller = new ControllerImpl();
 
@@ -17,9 +22,8 @@ public class GUI {
         Scanner sc = new Scanner(System.in);
         GUI gui = new GUI();
         boolean condition = true;
-
-        System.out.println("Add new contact");
-        gui.addNewContact();
+//        System.out.println("Add new contact");
+//        gui.addNewContact();
 
         while (condition) {
             System.out.println("""
@@ -31,6 +35,7 @@ public class GUI {
                     press 6: Show all contacts
                     press 7: Show all contacts with all info
                     press 8: Delete contact
+                    press 9: To Save contact 
                     press 0: Exit
                     """);
             String command = sc.next();
@@ -40,10 +45,11 @@ public class GUI {
                 case "2" -> gui.addNumberInExistingContact();
                 case "3" -> gui.updateExistingNumber();
                 case "4" -> gui.addEmailInExistingContact();
-                case "5" -> gui.updateExistingEmail();
-                case "6" -> System.out.println("Contacts:\n" + controller.getAllNames());
-                case "7" -> gui.showContactsInfo();
-                case "8" -> gui.delete();
+                case "5" -> UpdateJson(); // gui.updateExistingEmail();
+                case "6" -> showAllNames(); //System.out.println("Contacts:\n" + controller.getAllNames());
+                case "7" -> showAllinfoJson();//gui.showContactsInfo();
+                case "8" -> delitefromJson();//gui.delete();
+                case "9" -> saveToJson();
                 case "0" -> condition = false;
                 default -> {
                 }
@@ -76,6 +82,7 @@ public class GUI {
         companyName = Helper.addCompany(companyName);
 
         controller.create(name, new User(numbers, emails, companyName));
+        Json.saveToJson();
 
     }
 

@@ -1,4 +1,4 @@
-package com.company.model;
+package model;
 
 public enum EmailType {
     GMAIL(0), ICLOUD(1), OTHER(2);
