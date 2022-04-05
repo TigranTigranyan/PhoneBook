@@ -1,27 +1,17 @@
 package com.company.services;
 
+import com.company.model.*;
 import com.company.model.Number;
-import com.company.model.PhoneNumberType;
-import com.company.model.User;
-
-import java.util.List;
 
 public interface Service {
 
-    void addNew(String key, User value);
+    void addNewContact(String key, User value);
 
-    void addNewNumber(String key, Number number);
+    void update(String userName, Number number, int index);
 
-    void update(String userName, String number, PhoneNumberType phoneNumberType,int index);
+    void update(String userName, Email email, int index);
 
-    String printContactNames();
-
-    void printContacts();
+    String contactNames();
 
     void delete(String key);
-
-    User get(String key);
-
-
-////User search(String key);
 }
