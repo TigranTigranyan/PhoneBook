@@ -1,19 +1,17 @@
 package com.company;
 
-import com.company.controller.Controller;
-import com.company.model.Email;
-import com.company.model.EmailType;
+import com.company.controller.ControllerImpl;
+import com.company.model.*;
 import com.company.model.Number;
-import com.company.model.PhoneNumberType;
-import com.company.services.Validator;
 
+import java.util.InputMismatchException;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Scanner;
 
 public class GUI {
     static Scanner sc = new Scanner(System.in);
-    static Controller controller = new Controller();
+    static ControllerImpl controller = new ControllerImpl();
 
     public static void start() {
         Scanner sc = new Scanner(System.in);
@@ -77,7 +75,7 @@ public class GUI {
         String companyName = sc.next();
         companyName = Helper.addCompany(companyName);
 
-        controller.create(name, numbers, emails, companyName);
+        controller.create(name, new User(numbers, emails, companyName));
 
     }
 
@@ -90,7 +88,7 @@ public class GUI {
         String number = sc.next();
         number = Helper.addNumber(number);
 
-        controller.addNumberInExisting(name, number, selectPhoneNumberType());
+        controller.addNumberInExisting(name, new Number(number, selectPhoneNumberType()));
 
     }
 
@@ -103,7 +101,7 @@ public class GUI {
         String email = sc.next();
         email = Helper.addEmail(email);
 
-        controller.addEmailInExisting(name, email, selectEmailType());
+        controller.addEmailInExisting(name, new Email(email, selectEmailType()));
     }
 
     public void showContactsInfo() {
@@ -134,7 +132,7 @@ public class GUI {
         String number = sc.next();
         number = Helper.addNumber(number);
 
-        controller.updateNumber(name, number, selectPhoneNumberType(), index);
+        controller.updateNumber(name, new Number(number, selectPhoneNumberType()), index);
     }
 
     public void updateExistingEmail() {
@@ -152,12 +150,13 @@ public class GUI {
         String email = sc.next();
         email = Helper.addEmail(email);
 
-        controller.updateEmail(name, email, selectEmailType(), index);
+        controller.updateEmail(name, new Email(email, selectEmailType()), index);
     }
 
     private static PhoneNumberType selectPhoneNumberType() {
         PhoneNumberType phoneNumberType = null;
         boolean inputIsWrong = true;
+        int index;
         while (inputIsWrong) {
             System.out.println("Choose number type");
             System.out.println("""
@@ -166,30 +165,20 @@ public class GUI {
                     3: WORK
                     4: MOBILE
                     """);
-            String numberType = sc.next();
 
-            switch (numberType) {
-                case "1" -> {
-                    phoneNumberType = PhoneNumberType.HOME;
-                    inputIsWrong = false;
-                }
-                case "2" -> {
-                    phoneNumberType = PhoneNumberType.SCHOOL;
-                    inputIsWrong = false;
-                }
-                case "3" -> {
-                    phoneNumberType = PhoneNumberType.WORK;
-                    inputIsWrong = false;
-                }
-                case "4" -> {
-                    phoneNumberType = PhoneNumberType.MOBILE;
-                    inputIsWrong = false;
-                }
-                default -> System.out.println("No such type");
+            try {
+                System.out.println("choose type");
+                index = sc.nextInt();
+                phoneNumberType = PhoneNumberType.values()[index - 1];
+                inputIsWrong = false;
+            } catch (IndexOutOfBoundsException | InputMismatchException e) {
+                System.out.println("No such type");
+                sc.next();
             }
         }
         return phoneNumberType;
     }
+
 
     private static EmailType selectEmailType() {
         EmailType emailType = null;

@@ -1,5 +1,10 @@
 package com.company.model;
 
 public enum EmailType {
-    GMAIL, ICLOUD, OTHER;
+    GMAIL(0), ICLOUD(1), OTHER(2);
+    private int index;
+
+    EmailType(int index){
+        this.index=index;
+    }
 }
