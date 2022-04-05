@@ -1,5 +1,7 @@
 package com.company;
 
+import com.company.controller.Json;
+
 import java.io.IOException;
 import java.util.Scanner;
 
@@ -33,6 +35,8 @@ public class Main {
                     press 4: Add email in existing contact
                     press 5: Show all contacts
                     press 6: Delete contact
+                    press 7: Save to Json
+                    press 8: Show all contacts from Json
                     press 0: Exit
                     """);
             int command = sc.nextInt();
@@ -56,6 +60,11 @@ public class Main {
                 case 6:
                     gui.delete();
                     break;
+                case 7:
+                    Json.saveToJson();
+                    break;
+                case 8:
+                    Json.showAllJson();
                 case 0:
                     programIsRunning = false;
                     break;

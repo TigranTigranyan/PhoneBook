@@ -8,10 +8,7 @@ import com.company.services.PhoneService;
 import com.company.services.UserService;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
-import org.json.simple.parser.ParseException;
 
-import java.io.*;
 import java.util.List;
 
 public class Controller {
@@ -19,9 +16,9 @@ public class Controller {
     static UserService userService = new UserService();
     static EmailService emailService = new EmailService();
     public static final String ANSI_PURPLE = "\u001B[35m";
-    static JSONObject employeeDetails = new JSONObject();
-    static JSONObject employeeObject = new JSONObject();
-    static JSONArray employeeList = new JSONArray();
+    static JSONObject phoneDetails = new JSONObject();
+    static JSONObject phoneObject = new JSONObject();
+    static JSONArray phonebookList = new JSONArray();
 
 
     public static void create(String userName, List<Number> numbers, List<Email> emails, String company) {
@@ -54,20 +51,6 @@ public class Controller {
 
     public static CharSequence showAll() {
 
-        /**
-         * Read from jile "phonebook.txt"
-         */
-//        File file = new File("phonebook.txt");
-//        Scanner sc = null;
-//        try {
-//            sc = new Scanner(file);
-//        } catch (FileNotFoundException e) {
-//            e.printStackTrace();
-//        }
-//
-//        while (sc.hasNextLine())
-//            System.out.println(sc.nextLine());
-
 
         //______________________________________________________________
 
@@ -75,77 +58,16 @@ public class Controller {
         System.out.println("---------------");
         for (String name : Contact.contacts.keySet()) {
             User user = Contact.contacts.get(name);
-            System.out.println(ANSI_PURPLE+name + "\n" + userService.contactNumbers(user) +
+            System.out.println(ANSI_PURPLE + name + "\n" + userService.contactNumbers(user) +
                     emailService.contactEmails(user) +
                     " " + user.getCompany());
             System.out.println("---------------");
-
-            JSONParser jsonParser = new JSONParser();
-
-            try (FileReader reader = new FileReader("employees.json"))
-            {
-                //Read JSON file
-                Object obj = jsonParser.parse(reader);
-
-                JSONArray existingData = (JSONArray) obj;
-
-                for (int i = 0; i < existingData.size(); i++) {
-
-                    JSONObject explrObject = (JSONObject) existingData.get(i);
-                    System.out.println(explrObject);
-                    employeeList.add(explrObject);
-
-                }
-
-                //Iterate over employee array
-                //for getting data from json
-                //existingData.forEach( emp -> parseEmployeeObject( (JSONObject) emp ) );
-
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
-            } catch (IOException e) {
-                e.printStackTrace();
-            } catch (ParseException e) {
-                e.printStackTrace();
-            }
-
-            //employeeDetails.put("Name", name);
-            employeeDetails.put("Number", userService.contactNumbers(user));
-            employeeDetails.put("Email", emailService.contactEmails(user));
-            employeeObject.put(name, employeeDetails);
-            employeeList.add(employeeObject);
-
-            //Write JSON file
-            try (FileWriter file = new FileWriter("employees.json")) {
-                file.write(employeeList.toJSONString());
-                file.flush();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-
-
         }
         return "";
     }
 
-    private static void parseEmployeeObject(JSONObject employee)
-    {
-        //Get employee object within list
-        JSONObject employeeObject2 = (JSONObject) employee.get("tikko");
-        //employeeList.add(employeeObject2);
-
-        System.out.println(employee);
 
 
-        //Get employee last name
-        String lastName = (String) employeeObject2.get("Email");
-        System.out.println("here");
-        System.out.println(lastName);
 
-        String number = (String) employeeObject2.get("Number");
-        System.out.println("herererer");
-        System.out.println(number);
-
-    }
 }
 

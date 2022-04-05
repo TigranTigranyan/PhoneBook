@@ -6,7 +6,6 @@ import com.company.model.EmailType;
 import com.company.model.Number;
 import com.company.model.PhoneNumberType;
 import com.company.services.Validator;
-import org.json.simple.JSONObject;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -19,8 +18,7 @@ import static com.company.helper.*;
 public class GUI {
     static Scanner sc = new Scanner(System.in);
     static Controller controller = new Controller();
-    static JSONObject employeeDetails = new JSONObject();
-    static JSONObject employeeObject = new JSONObject();
+
 
     public static void addNewContact() {
         System.out.println("Enter name");
